@@ -1,7 +1,7 @@
 #include <DHT.h>
-#define DHTPIN 4 // pin data DHT22 terhubung ke GPIO 4
+#define DHTPIN D4 // pin data DHT22 terhubung ke GPIO 4
 #define DHTTYPE DHT22 // tipe sensor yang digunakan
-#define RELAYPIN 26 // pin kendali relay/LED indikator
+#define RELAYPIN D1 // pin kendali relay/LED indikator
 DHT dht(DHTPIN, DHTTYPE); // inisialisasi objek sensor DHT
 
 const float suhuThreshold = 30.0; // ambang batas suhu (°C)
