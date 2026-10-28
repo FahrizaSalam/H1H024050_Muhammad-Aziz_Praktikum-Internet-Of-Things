@@ -5,6 +5,33 @@
 **Jawaban:**
 Alurnya dimulai dari inisialisasi komunikasi serial (`Serial.begin(115200)`) dan konfigurasi pin LED sebagai output (`pinMode(ledPin, OUTPUT)`). Selanjutnya, program mengatur mode WiFi menjadi Station (`WiFi.mode(WIFI_STA)`) dan memulai proses koneksi dengan memanggil `WiFi.begin(ssid, password)`. Program kemudian masuk ke perulangan pengecekan status (`while (WiFi.status() != WL_CONNECTED)`), di mana program memberi jeda 500 ms dan mencetak tanda titik (`.`) ke Serial Monitor secara berulang sampai koneksi berhasil. Setelah status menjadi `WL_CONNECTED`, program mencetak informasi jaringan (IP Address, MAC Address, dan nilai RSSI) ke Serial Monitor serta menyalakan LED indikator (`digitalWrite(ledPin, HIGH)`). Pada fungsi `loop()`, program terus memantau status koneksi setiap 5 detik: jika tetap terhubung mencetak status terhubung, dan jika terputus mencetak status terputus serta mematikan LED indikator.
 
+```mermaid
+flowchart TD
+    A([Start]) --> B["Serial.begin(115200)"]
+    B --> C["pinMode(ledPin, OUTPUT)"]
+    C --> D["digitalWrite(ledPin, LOW)"]
+    D --> E["WiFi.mode(WIFI_STA)"]
+    E --> F["WiFi.begin(ssid, password)"]
+    F --> G{"WiFi.status() == WL_CONNECTED?"}
+
+    G -- Tidak --> H["delay(500)"]
+    H --> I["Cetak '.' ke Serial Monitor"]
+    I --> G
+
+    G -- Ya --> J["Cetak info jaringan: IP, MAC, RSSI"]
+    J --> K["digitalWrite(ledPin, HIGH)"]
+    K --> L["loop()"]
+
+    L --> M{"WiFi.status() == WL_CONNECTED?"}
+    M -- Ya --> N["Cetak: Status Terhubung"]
+    M -- Tidak --> O["Cetak: Status Terputus"]
+    O --> P["digitalWrite(ledPin, LOW)"]
+
+    N --> Q["delay(5000)"]
+    P --> Q
+    Q --> L
+```
+
 ## Soal 2: Apa fungsi dari perintah WiFi.mode(WIFI_STA) pada program tersebut?
 
 **Jawaban:**

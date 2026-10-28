@@ -5,6 +5,25 @@
 **Jawaban:**
 Alurnya dimulai dari inisialisasi (`Serial.begin()` dan `dht.begin()`), lalu masuk ke `loop()` yang berjalan berulang: sensor membaca suhu dan kelembaban (`readTemperature()`, `readHumidity()`), kemudian program memeriksa apakah hasilnya valid menggunakan `isnan()`. Jika hasilnya `NaN`, program mencetak pesan "gagal membaca"; jika valid, program mencetak nilai suhu dan kelembaban ke Serial Monitor. Setelah itu program menunggu (`delay(2000)`) sebelum kembali ke langkah pembacaan berikutnya, membentuk siklus berulang tanpa akhir.
 
+```mermaid
+flowchart TD
+    A([Start]) --> B["Serial.begin(115200)"]
+    B --> C["dht.begin()"]
+    C --> D["Cetak: Memulai akuisisi data sensor DHT22..."]
+    D --> E["loop()"]
+
+    E --> F["Baca kelembaban = dht.readHumidity()"]
+    F --> G["Baca suhu = dht.readTemperature()"]
+    G --> H{"isnan(kelembaban) || isnan(suhu)?"}
+
+    H -- Ya --> I["Cetak: Gagal membaca data dari sensor DHT22!"]
+    H -- Tidak --> J["Cetak: Suhu dan Kelembaban ke Serial Monitor"]
+
+    I --> K["delay(2000)"]
+    J --> K
+    K --> E
+```
+
 ## Soal 2: Apa fungsi dari perintah isnan() pada program tersebut?
 
 **Jawaban:**
